@@ -36,6 +36,7 @@ function logout() {
     }, 3500);
 }
 
+
 // Calling the functions in the given order
 register();
 sendWelcomeMessage();
