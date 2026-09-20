@@ -14,7 +14,6 @@ let ukCount = 0;
 
 records.forEach((record) => {
     const email = record.email.toLowerCase();
-
     const completeRecord = JSON.stringify(record, null, 2) + "\n\n";
 
     if (email.endsWith(".com")) {
