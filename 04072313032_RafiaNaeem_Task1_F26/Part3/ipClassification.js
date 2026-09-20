@@ -50,7 +50,6 @@ records.forEach((record) => {
         fs.appendFileSync("IP_Class_E.txt", completeRecord);
         classECount++;
     }
-
     else {
         ignoredCount++;
     }
