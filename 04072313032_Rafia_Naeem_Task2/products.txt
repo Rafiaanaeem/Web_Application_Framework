@@ -1,0 +1,8 @@
+ID: 89, Product Title: Samsung, Product Price: 75000
+ID: 90, Product Title: Dell-Laptop, Product Price: 120000
+ID: 50, Product Title: Mobile, Product Price: 50000
+ID: 1, Product Title: Laptop, Product Price: 120000
+ID: 2, Product Title: Keyboard, Product Price: 5000
+ID: 3, Product Title: Mouse, Product Price: 2500
+ID: 4, Product Title: Monitor, Product Price: 45000
+ID: 5, Product Title: Headphones, Product Price: 8000

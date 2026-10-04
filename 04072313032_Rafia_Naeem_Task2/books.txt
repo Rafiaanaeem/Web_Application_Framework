@@ -1,0 +1,8 @@
+ID: 19, Book Title: AlgorithmDesignAndApplications, Edition: 3, Year of Publication: 2019, Press Name: Wiley
+ID: 20, Book Title: DatabaseSystems, Edition: 5, Year of Publication: 2020, Press Name: Pearson
+ID: 30, Book Title: Programming, Edition: 2, Year of Publication: 2024, Press Name: Pearson
+ID: 1, Book Title: CleanCode, Edition: 1, Year of Publication: 2008, Press Name: PrenticeHall
+ID: 2, Book Title: DatabaseSystems, Edition: 5, Year of Publication: 2020, Press Name: Pearson
+ID: 3, Book Title: ComputerNetworks, Edition: 6, Year of Publication: 2017, Press Name: Pearson
+ID: 4, Book Title: ArtificialIntelligence, Edition: 4, Year of Publication: 2021, Press Name: McGrawHill
+ID: 5, Book Title: WebDevelopment, Edition: 2, Year of Publication: 2022, Press Name: Wiley
