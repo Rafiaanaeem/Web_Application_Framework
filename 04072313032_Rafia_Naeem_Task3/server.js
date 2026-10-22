@@ -54,7 +54,6 @@ async function readRecords() {
 
   return records;
 }
-
 async function writeRecords(records) {
   await fs.writeFile(
     dataFile,
