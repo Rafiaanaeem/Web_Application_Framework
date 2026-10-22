@@ -27,7 +27,7 @@ function requestLogger(req, res, next) {
   next();
 }
 
-// Log individual CRUD actions.
+// Log individual CRUD actions
 function logAction(action, recordId, username) {
   writeLog(
     `[${new Date().toISOString()}] CRUD: ${action} ` +

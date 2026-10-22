@@ -1,30 +1,31 @@
+const { requestLogger, logAction } = require('./middleware/loggin_mw');
+const { requireLogin, requireAdmin } = require('./middleware/authorization_mw');
+const validateRecord = require('./middleware/input_validation_mw');
+
+const {
+  generalRateLimiter,
+  deleteRateLimiter
+} = require('./middleware/rate_limiting_mw');
+
+const {
+  notFound,
+  errorHandler
+} = require('./middleware/errorHandler_mw');
+
 
 const express = require('express');
 const session = require('express-session');
 const fs = require('fs/promises');
 const path = require('path');
 
-const { requestLogger, logAction } = require('./middleware/logger');
-const { requireLogin, requireAdmin } = require('./middleware/authorization');
-const validateRecord = require('./middleware/validation');
-const {
-  generalRateLimiter,
-  deleteRateLimiter
-} = require('./middleware/rateLimiter');
-const {
-  notFound,
-  errorHandler
-} = require('./middleware/errorHandler');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 const dataFile = path.join(__dirname, 'data.json');
 
-// Configure EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Global middleware
+// Middleware
 app.use(requestLogger);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -43,7 +44,6 @@ app.use(session({
 
 app.use(generalRateLimiter);
 
-// Read records from JSON file
 async function readRecords() {
   const content = await fs.readFile(dataFile, 'utf8');
   const records = JSON.parse(content);
@@ -55,7 +55,6 @@ async function readRecords() {
   return records;
 }
 
-// Write records to JSON file
 async function writeRecords(records) {
   await fs.writeFile(
     dataFile,
@@ -64,7 +63,7 @@ async function writeRecords(records) {
   );
 }
 
-// Validate and find a record by ID
+// function to find a record by its ID
 async function findRecord(req, res) {
   const idValue = req.params.id;
 
@@ -100,7 +99,7 @@ async function findRecord(req, res) {
   return { id, records, record };
 }
 
-// Home page
+// Home route
 app.get('/', (req, res) => {
   if (req.session.user) {
     return res.redirect('/records');
@@ -109,28 +108,24 @@ app.get('/', (req, res) => {
   res.redirect('/login');
 });
 
-// Display login page
+// Login page
 app.get('/login', (req, res) => {
-  res.render('login', { error: null });
+  res.render('login_page', { error: null });
 });
 
 // Process login
 app.post('/login', (req, res, next) => {
   const { username, password } = req.body;
-
   let user = null;
 
   if (username === 'admin' && password === 'Admin123!') {
     user = { username: 'admin', role: 'admin' };
-  } else if (
-    username === 'viewer' &&
-    password === 'Viewer123!'
-  ) {
+  } else if (username === 'viewer' && password === 'Viewer123!') {
     user = { username: 'viewer', role: 'viewer' };
   }
 
   if (!user) {
-    return res.status(401).render('login', {
+    return res.status(401).render('login_page', {
       error: 'Invalid username or password.'
     });
   }
@@ -157,12 +152,12 @@ app.post('/logout', requireLogin, (req, res, next) => {
   });
 });
 
-// Display all records
+// View all records
 app.get('/records', requireLogin, async (req, res, next) => {
   try {
     const records = await readRecords();
 
-    res.render('records', {
+    res.render('records_page', {
       records,
       user: req.session.user
     });
@@ -171,12 +166,12 @@ app.get('/records', requireLogin, async (req, res, next) => {
   }
 });
 
-// Show Add Record form (Admin only)
+// Display add-record form 
 app.get('/records/add', requireAdmin, (req, res) => {
-  res.render('add');
+  res.render('add_records');
 });
 
-// Add a record (Admin only)
+// Add a record 
 app.post(
   '/records/add',
   requireAdmin,
@@ -202,7 +197,6 @@ app.post(
       await writeRecords(records);
 
       logAction('ADD', newRecord.id, req.session.user.username);
-
       res.redirect('/records');
     } catch (err) {
       next(err);
@@ -210,59 +204,50 @@ app.post(
   }
 );
 
-// Show Edit Record form (Admin only)
-app.get(
-  '/records/:id/edit',
-  requireAdmin,
-  async (req, res, next) => {
-    try {
-      const result = await findRecord(req, res);
+// Display edit form 
+app.get('/records/:id/edit', requireAdmin, async (req, res, next) => {
+  try {
+    const result = await findRecord(req, res);
 
-      if (!result) return;
+    if (!result) return;
 
-      res.render('edit', { record: result.record });
-    } catch (err) {
-      next(err);
-    }
+    res.render('edit_records', {
+      record: result.record
+    });
+  } catch (err) {
+    next(err);
   }
-);
+});
 
-// Update a record (Admin only)
+// Update a record 
 app.post(
   '/records/:id/update',
   requireAdmin,
+  validateRecord,
   async (req, res, next) => {
     try {
       const result = await findRecord(req, res);
 
       if (!result) return;
 
-      // Validate the submitted fields before updating.
-      validateRecord(req, res, async () => {
-        try {
-          const { records, record, id } = result;
+      const { records, record, id } = result;
 
-          record.first_name = req.body.first_name;
-          record.last_name = req.body.last_name;
-          record.gender = req.body.gender;
-          record.email = req.body.email;
+      record.first_name = req.body.first_name;
+      record.last_name = req.body.last_name;
+      record.gender = req.body.gender;
+      record.email = req.body.email;
 
-          await writeRecords(records);
+      await writeRecords(records);
 
-          logAction('UPDATE', id, req.session.user.username);
-
-          res.redirect('/records');
-        } catch (err) {
-          next(err);
-        }
-      });
+      logAction('UPDATE', id, req.session.user.username);
+      res.redirect('/records');
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Remove a record (Admin only; rate-limited)
+// Delete a record 
 app.post(
   '/records/:id/delete',
   requireAdmin,
@@ -279,7 +264,6 @@ app.post(
       await writeRecords(updatedRecords);
 
       logAction('REMOVE', id, req.session.user.username);
-
       res.redirect('/records');
     } catch (err) {
       next(err);

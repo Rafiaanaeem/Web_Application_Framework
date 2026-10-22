@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | RecordDesk</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #F8F7F2;
+      color: #334155;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 410px;
+      padding: 36px;
+      background: #FFFFFF;
+      border: 1px solid #E5E7E2;
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(15, 118, 110, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #DDEFEA;
+      color: #0F766E;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: 21px;
+      color: #115E59;
+    }
+
+    .brand-subtitle {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 27px;
+      color: #1F2937;
+    }
+
+    .intro {
+      margin: 0 0 25px;
+      color: #64748B;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .error {
+      padding: 11px;
+      border-radius: 8px;
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin: 17px 0 7px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #D1D5DB;
+      border-radius: 9px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #0F766E;
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 13px;
+      border: 0;
+      border-radius: 9px;
+      background: #0F766E;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #115E59;
+    }
+
+    .demo {
+      margin-top: 24px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #F0F7F4;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .demo strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #115E59;
+    }
+
+    .footer {
+      margin: 24px 0 0;
+      text-align: center;
+      color: #94A3B8;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-card">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">R</div>
+      <div>
+        <p class="brand-name"><strong>RecordDesk</strong></p>
+        <p class="brand-subtitle">Employee Records Portal</p>
+      </div>
+    </div>
+
+    <h1>Welcome back</h1>
+    <p class="intro">
+      Sign in to access your employee records workspace.
+    </p>
+
+    <% if (error) { %>
+      <p class="error" role="alert"><%= error %></p>
+    <% } %>
+
+    <form action="/login" method="POST">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        autocomplete="username"
+        placeholder="Enter your username"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="current-password"
+        placeholder="Enter your password"
+        required
+      >
+
+      <button type="submit">Sign in to RecordDesk</button>
+    </form>
+
+    <div class="demo">
+      <strong>Development test accounts</strong>
+      Admin: admin / Admin123!<br>
+      Viewer: viewer / Viewer123!
+    </div>
+
+    <p class="footer">RecordDesk · WAF Task 3</p>
+  </main>
+</body>
+</html>

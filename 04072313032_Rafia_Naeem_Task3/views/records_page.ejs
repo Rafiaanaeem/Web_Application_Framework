@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Records | RecordDesk</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #F8F7F2;
+      color: #334155;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 5%;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7E2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 12px;
+      background: #DDEFEA;
+      color: #0F766E;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .brand h2 {
+      margin: 0;
+      color: #115E59;
+      font-size: 20px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: #64748B;
+      font-size: 12px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .user-info {
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    .role {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #DDEFEA;
+      color: #115E59;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    button, .button {
+      display: inline-block;
+      padding: 10px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #0F766E;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button:hover, .button:hover {
+      background: #115E59;
+    }
+
+    .logout {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #475569;
+    }
+
+    .logout:hover {
+      background: #F1F5F9;
+      color: #334155;
+    }
+
+    main {
+      width: min(1200px, 92%);
+      margin: 38px auto;
+    }
+
+    .page-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #0F766E;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #1F2937;
+      font-size: 29px;
+    }
+
+    .description {
+      margin: 9px 0 0;
+      color: #64748B;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .summary {
+      margin-bottom: 18px;
+      padding: 18px 20px;
+      border: 1px solid #D5E8E1;
+      border-radius: 12px;
+      background: #EDF5F0;
+    }
+
+    .summary-label {
+      margin: 0 0 7px;
+      color: #64748B;
+      font-size: 12px;
+    }
+
+    .summary-number {
+      margin: 0;
+      color: #115E59;
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .table-card {
+      overflow: hidden;
+      border: 1px solid #E5E7E2;
+      border-radius: 14px;
+      background: #FFFFFF;
+      box-shadow: 0 8px 25px rgba(15, 118, 110, 0.05);
+    }
+
+    .table-heading {
+      padding: 19px 20px;
+      border-bottom: 1px solid #E5E7E2;
+    }
+
+    .table-heading h2 {
+      margin: 0;
+      color: #1F2937;
+      font-size: 16px;
+    }
+
+    .table-heading p {
+      margin: 6px 0 0;
+      color: #64748B;
+      font-size: 12px;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      padding: 14px 18px;
+      background: #F0F7F4;
+      color: #115E59;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid #EEF0EC;
+      font-size: 13px;
+    }
+
+    tbody tr:hover {
+      background: #FAFCFA;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .record-id {
+      color: #0F766E;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .edit-button {
+      background: #DDEFEA;
+      color: #115E59;
+    }
+
+    .edit-button:hover {
+      background: #C7E4DA;
+    }
+
+    .delete-button {
+      background: #FEF2F2;
+      color: #B91C1C;
+    }
+
+    .delete-button:hover {
+      background: #FEE2E2;
+    }
+
+    .empty {
+      padding: 35px 20px;
+      color: #64748B;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 22px;
+      color: #94A3B8;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .header-right {
+        justify-content: flex-start;
+      }
+
+      .user-info {
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      main {
+        margin-top: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">R</div>
+      <div>
+        <h2>RecordDesk</h2>
+        <p>Employee Records Portal</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="user-info">
+        <strong><%= user.username %></strong><br>
+        <span class="role"><%= user.role %></span>
+      </div>
+
+      <form action="/logout" method="POST">
+        <button type="submit" class="logout">Sign out</button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">Records management</p>
+        <h1>Employee Directory</h1>
+        <p class="description">
+          View and manage employee information in one place.
+        </p>
+      </div>
+
+      <% if (user.role === 'admin') { %>
+        <a class="button" href="/records/add">+ Add employee</a>
+      <% } %>
+    </section>
+
+    <section class="summary">
+      <p class="summary-label">Total employee records</p>
+      <p class="summary-number"><%= records.length %></p>
+    </section>
+
+    <section class="table-card">
+      <div class="table-heading">
+        <h2>All employee records</h2>
+        <p>
+          <% if (user.role === 'admin') { %>
+            You can add, edit, and remove records.
+          <% } else { %>
+            Viewer access: you can view records only.
+          <% } %>
+        </p>
+      </div>
+
+      <% if (records.length > 0) { %>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Gender</th>
+                <th>Email address</th>
+                <% if (user.role === 'admin') { %>
+                  <th>Actions</th>
+                <% } %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% records.forEach(record => { %>
+                <tr>
+                  <td class="record-id">#<%= record.id %></td>
+                  <td><%= record.first_name %></td>
+                  <td><%= record.last_name %></td>
+                  <td><%= record.gender %></td>
+                  <td><%= record.email %></td>
+
+                  <% if (user.role === 'admin') { %>
+                    <td>
+                      <div class="actions">
+                        <a
+                          class="button edit-button"
+                          href="/records/<%= record.id %>/edit"
+                        >Edit</a>
+
+                        <form
+                          action="/records/<%= record.id %>/delete"
+                          method="POST"
+                          onsubmit="return confirm('Are you sure you want to remove this record?');"
+                        >
+                          <button
+                            type="submit"
+                            class="delete-button"
+                          >Remove</button>
+                        </form>
+                      </div>
+                    </td>
+                  <% } %>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="empty">
+          No employee records are available yet.
+          <% if (user.role === 'admin') { %>
+            Use the Add employee option to create your first record.
+          <% } %>
+        </div>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    RecordDesk · WAF Task 3 · Employee Records Management
+  </footer>
+</body>
+</html>

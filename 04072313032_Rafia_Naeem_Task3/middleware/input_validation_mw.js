@@ -9,6 +9,7 @@ function validateRecord(req, res, next) {
 
   const errors = [];
 
+  // validation through regular expressions
   // Validate first name
   if (!first_name || !first_name.trim()) {
     errors.push('First name is required.');
@@ -42,7 +43,6 @@ function validateRecord(req, res, next) {
     });
   }
 
-  // Remove unnecessary spaces
   req.body.first_name = first_name.trim();
   req.body.last_name = last_name.trim();
   req.body.email = email.trim();
