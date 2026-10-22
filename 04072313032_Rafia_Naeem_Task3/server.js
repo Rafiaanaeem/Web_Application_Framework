@@ -25,7 +25,7 @@ const dataFile = path.join(__dirname, 'data.json');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware
+// Middleware using app.use()
 app.use(requestLogger);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
