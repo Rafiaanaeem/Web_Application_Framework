@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - WAF Task 3</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .error-container {
+      background: white;
+      max-width: 500px;
+      width: calc(100% - 60px);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px #00000015;
+    }
+
+    h1 {
+      color: #dc2626;
+    }
+
+    p {
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    a {
+      display: inline-block;
+      margin: 10px 5px 0;
+      padding: 10px 15px;
+      border-radius: 5px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+    }
+
+    .secondary {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1><%= title %></h1>
+
+    <p><%= message %></p>
+
+    <a href="/records">Back to Records</a>
+    <a href="/login" class="secondary">Login</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 2,
+    "first_name": "Sara",
+    "last_name": "Ahmed",
+    "gender": "Female",
+    "email": "sara@example.com"
+  },
+  {
+    "id": 3,
+    "first_name": "Usman",
+    "last_name": "Raza",
+    "gender": "Male",
+    "email": "usman@example.com"
+  },
+  {
+    "id": 4,
+    "first_name": "ayesha",
+    "last_name": "farida",
+    "gender": "Female",
+    "email": "ayesha456@gmail.com"
+  }
+]
