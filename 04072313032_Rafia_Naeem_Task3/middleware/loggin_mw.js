@@ -3,13 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 const logFile = path.join(__dirname, '..', 'logs', 'requests.log');
-
-// Write a message to the log file.
+// function to write a message to the log file
 function writeLog(message) {
   fs.appendFileSync(logFile, message + '\n', 'utf8');
 }
 
-// Log every incoming HTTP request.
 function requestLogger(req, res, next) {
   const startTime = Date.now();
   const timestamp = new Date().toISOString();
@@ -26,8 +24,7 @@ function requestLogger(req, res, next) {
 
   next();
 }
-
-// Log individual CRUD actions
+// function to log individual crud operations
 function logAction(action, recordId, username) {
   writeLog(
     `[${new Date().toISOString()}] CRUD: ${action} ` +

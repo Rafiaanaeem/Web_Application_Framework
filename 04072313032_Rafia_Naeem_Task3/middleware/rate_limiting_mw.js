@@ -1,10 +1,8 @@
 
 const requestCounts = new Map();
 const deleteCounts = new Map();
-
 const TRUSTED_IPS = new Set(['127.0.0.1', '::1']);
 const BLOCKED_IPS = new Set(['203.0.113.10']);
-
 const WINDOW_MS = 60 * 1000;
 const MAX_REQUESTS = 100;
 const MAX_DELETES = 3;
@@ -56,7 +54,6 @@ function generalRateLimiter(req, res, next) {
   next();
 }
 
-// Apply a separate limit to delete requests.
 function deleteRateLimiter(req, res, next) {
   const ip = getClientIp(req);
   const now = Date.now();

@@ -98,7 +98,7 @@ async function findRecord(req, res) {
 
   return { id, records, record };
 }
-
+// below are all the routes
 // Home route
 app.get('/', (req, res) => {
   if (req.session.user) {
