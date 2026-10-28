@@ -61,7 +61,6 @@ async function writeRecords(records) {
     'utf8'
   );
 }
-
 // function to find a record by its ID
 async function findRecord(req, res) {
   const idValue = req.params.id;
