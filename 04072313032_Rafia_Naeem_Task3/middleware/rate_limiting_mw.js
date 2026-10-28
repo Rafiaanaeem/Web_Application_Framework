@@ -57,7 +57,6 @@ function generalRateLimiter(req, res, next) {
 function deleteRateLimiter(req, res, next) {
   const ip = getClientIp(req);
   const now = Date.now();
-
   let entry = deleteCounts.get(ip);
 
   if (!entry || now - entry.start >= WINDOW_MS) {
