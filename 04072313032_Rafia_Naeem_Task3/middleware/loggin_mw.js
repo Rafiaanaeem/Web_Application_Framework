@@ -31,7 +31,6 @@ function logAction(action, recordId, username) {
     `Record ID: ${recordId} User: ${username}`
   );
 }
-
 module.exports = {
   requestLogger,
   logAction
