@@ -17,7 +17,6 @@ function errorHandler(err, req, res, next) {
     message: 'An unexpected server error occurred.'
   });
 }
-
 module.exports = {
   notFound,
   errorHandler
