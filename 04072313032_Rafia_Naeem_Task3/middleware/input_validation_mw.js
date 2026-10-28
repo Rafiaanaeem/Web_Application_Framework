@@ -34,7 +34,6 @@ function validateRecord(req, res, next) {
   ) {
     errors.push('Please enter a valid email address.');
   }
-
   // Display errors if any field is invalid
   if (errors.length > 0) {
     return res.status(400).render('error', {
