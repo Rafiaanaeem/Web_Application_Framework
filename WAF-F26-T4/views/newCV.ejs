@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New CV</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h2>Resume Manager</h2>
+        <a href="/resumes" class="btn btn-secondary">Back to Home</a>
+    </header>
+
+    <main class="container">
+        <h1>Create New CV</h1>
+        <p class="subtitle">Enter the candidate's professional information.</p>
+
+        <form action="/resumes"
+              method="POST"
+              enctype="multipart/form-data"
+              class="resume-form">
+
+            <h2>Personal Information</h2>
+
+            <label>Full Name *</label>
+            <input type="text" name="fullname" required>
+
+            <label>Contact Number *</label>
+            <input type="text" name="contactNumber" required>
+
+            <label>Email *</label>
+            <input type="email" name="email" required>
+
+            <label>Profile Image</label>
+            <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+
+            <label>Professional Summary</label>
+            <textarea name="summary" rows="4"></textarea>
+
+            <h2>Qualifications</h2>
+
+            <div class="form-section">
+                <label>Degree</label>
+                <input type="text" name="qualifications[0][degree]">
+
+                <label>Institution</label>
+                <input type="text" name="qualifications[0][institution]">
+
+                <label>Year</label>
+                <input type="text" name="qualifications[0][year]">
+
+                <label>Grade / CGPA</label>
+                <input type="text" name="qualifications[0][grade]">
+            </div>
+
+            <h2>Certifications</h2>
+
+            <div class="form-section">
+                <label>Certification Title</label>
+                <input type="text" name="certifications[0][title]">
+
+                <label>Organization</label>
+                <input type="text" name="certifications[0][organization]">
+
+                <label>Year</label>
+                <input type="text" name="certifications[0][year]">
+            </div>
+
+            <h2>Professional Experience</h2>
+
+            <div class="form-section">
+                <label>Job Title</label>
+                <input type="text" name="professionalExperience[0][jobTitle]">
+
+                <label>Organization</label>
+                <input type="text" name="professionalExperience[0][organization]">
+
+                <label>Duration</label>
+                <input type="text" name="professionalExperience[0][duration]">
+
+                <label>Description</label>
+                <textarea name="professionalExperience[0][description]" rows="3"></textarea>
+            </div>
+
+            <h2>Skills and Other Information</h2>
+
+            <label>Skills (comma-separated)</label>
+            <input type="text" name="skills" placeholder="Python, Java, SQL">
+
+            <label>Languages (comma-separated)</label>
+            <input type="text" name="languages" placeholder="English, Urdu">
+
+            <label>Hobbies (comma-separated)</label>
+            <input type="text" name="hobbies" placeholder="Reading, Writing">
+
+            <label>Research Statement</label>
+            <textarea name="researchStatement" rows="4"></textarea>
+
+            <h2>Projects</h2>
+
+            <div class="form-section">
+                <label>Project Title</label>
+                <input type="text" name="projects[0][title]">
+
+                <label>Project Description</label>
+                <textarea name="projects[0][description]" rows="3"></textarea>
+            </div>
+
+            <label>Achievements (comma-separated)</label>
+            <input type="text" name="achievements">
+
+            <h2>Supporting Documents</h2>
+            <label>Upload Documents (PDF/DOC/DOCX, maximum 5 files)</label>
+            <input type="file" name="documents" accept=".pdf,.doc,.docx" multiple>
+
+            <button type="submit" class="btn submit-btn">Save CV</button>
+
+        </form>
+    </main>
+
+</body>
+</html>

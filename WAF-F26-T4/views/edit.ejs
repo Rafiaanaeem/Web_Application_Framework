@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit CV</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h2>Resume Manager</h2>
+    <a href="/resumes" class="btn btn-secondary">Back to Home</a>
+</header>
+
+<main class="container">
+    <h1>Edit CV</h1>
+    <p class="subtitle">Update the candidate's information.</p>
+
+    <form action="/resumes/<%= resume._id %>?_method=PATCH"
+          method="POST"
+          enctype="multipart/form-data"
+          class="resume-form">
+
+        <h2>Personal Information</h2>
+
+        <label>Full Name *</label>
+        <input name="fullname" value="<%= resume.fullname %>" required>
+
+        <label>Contact Number *</label>
+        <input name="contactNumber" value="<%= resume.contactNumber %>" required>
+
+        <label>Email *</label>
+        <input type="email" name="email" value="<%= resume.email %>" required>
+
+        <label>Current Profile Image</label>
+        <% if (resume.image) { %>
+            <img src="/uploads/images/<%= resume.image %>"
+                 class="profile-image" alt="Current profile image">
+        <% } else { %>
+            <p>No profile image uploaded.</p>
+        <% } %>
+
+        <label>Upload New Image (optional)</label>
+        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+
+        <label>Professional Summary</label>
+        <textarea name="summary" rows="4"><%= resume.summary || "" %></textarea>
+
+        <h2>Qualifications</h2>
+        <% (resume.qualifications || []).forEach((item, i) => { %>
+            <div class="form-section">
+                <label>Degree</label>
+                <input name="qualifications[<%= i %>][degree]"
+                       value="<%= item.degree || '' %>">
+
+                <label>Institution</label>
+                <input name="qualifications[<%= i %>][institution]"
+                       value="<%= item.institution || '' %>">
+
+                <label>Year</label>
+                <input name="qualifications[<%= i %>][year]"
+                       value="<%= item.year || '' %>">
+
+                <label>Grade / CGPA</label>
+                <input name="qualifications[<%= i %>][grade]"
+                       value="<%= item.grade || '' %>">
+            </div>
+        <% }) %>
+
+        <% if (!resume.qualifications?.length) { %>
+            <div class="form-section">
+                <label>Degree</label>
+                <input name="qualifications[0][degree]">
+                <label>Institution</label>
+                <input name="qualifications[0][institution]">
+                <label>Year</label>
+                <input name="qualifications[0][year]">
+                <label>Grade / CGPA</label>
+                <input name="qualifications[0][grade]">
+            </div>
+        <% } %>
+
+        <h2>Certifications</h2>
+        <% (resume.certifications || []).forEach((item, i) => { %>
+            <div class="form-section">
+                <label>Title</label>
+                <input name="certifications[<%= i %>][title]"
+                       value="<%= item.title || '' %>">
+                <label>Organization</label>
+                <input name="certifications[<%= i %>][organization]"
+                       value="<%= item.organization || '' %>">
+                <label>Year</label>
+                <input name="certifications[<%= i %>][year]"
+                       value="<%= item.year || '' %>">
+            </div>
+        <% }) %>
+
+        <% if (!resume.certifications?.length) { %>
+            <div class="form-section">
+                <label>Title</label>
+                <input name="certifications[0][title]">
+                <label>Organization</label>
+                <input name="certifications[0][organization]">
+                <label>Year</label>
+                <input name="certifications[0][year]">
+            </div>
+        <% } %>
+
+        <h2>Professional Experience</h2>
+        <% (resume.professionalExperience || []).forEach((item, i) => { %>
+            <div class="form-section">
+                <label>Job Title</label>
+                <input name="professionalExperience[<%= i %>][jobTitle]"
+                       value="<%= item.jobTitle || '' %>">
+                <label>Organization</label>
+                <input name="professionalExperience[<%= i %>][organization]"
+                       value="<%= item.organization || '' %>">
+                <label>Duration</label>
+                <input name="professionalExperience[<%= i %>][duration]"
+                       value="<%= item.duration || '' %>">
+                <label>Description</label>
+                <textarea name="professionalExperience[<%= i %>][description]"><%= item.description || "" %></textarea>
+            </div>
+        <% }) %>
+
+        <% if (!resume.professionalExperience?.length) { %>
+            <div class="form-section">
+                <label>Job Title</label>
+                <input name="professionalExperience[0][jobTitle]">
+                <label>Organization</label>
+                <input name="professionalExperience[0][organization]">
+                <label>Duration</label>
+                <input name="professionalExperience[0][duration]">
+                <label>Description</label>
+                <textarea name="professionalExperience[0][description]"></textarea>
+            </div>
+        <% } %>
+
+        <h2>Skills and Other Information</h2>
+
+        <label>Skills (comma-separated)</label>
+        <input name="skills" value="<%= (resume.skills || []).join(', ') %>">
+
+        <label>Languages (comma-separated)</label>
+        <input name="languages" value="<%= (resume.languages || []).join(', ') %>">
+
+        <label>Hobbies (comma-separated)</label>
+        <input name="hobbies" value="<%= (resume.hobbies || []).join(', ') %>">
+
+        <label>Research Statement</label>
+        <textarea name="researchStatement" rows="4"><%= resume.researchStatement || "" %></textarea>
+
+        <h2>Projects</h2>
+        <% (resume.projects || []).forEach((item, i) => { %>
+            <div class="form-section">
+                <label>Project Title</label>
+                <input name="projects[<%= i %>][title]"
+                       value="<%= item.title || '' %>">
+                <label>Description</label>
+                <textarea name="projects[<%= i %>][description]"><%= item.description || "" %></textarea>
+            </div>
+        <% }) %>
+
+        <% if (!resume.projects?.length) { %>
+            <div class="form-section">
+                <label>Project Title</label>
+                <input name="projects[0][title]">
+                <label>Description</label>
+                <textarea name="projects[0][description]"></textarea>
+            </div>
+        <% } %>
+
+        <label>Achievements (comma-separated)</label>
+        <input name="achievements"
+               value="<%= (resume.achievements || []).join(', ') %>">
+
+        <h2>Supporting Documents</h2>
+        <% if (resume.documents?.length) { %>
+            <p>Currently uploaded documents:</p>
+            <ul>
+                <% resume.documents.forEach(document => { %>
+                    <li><%= document %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <label>Upload additional documents (optional)</label>
+        <input type="file" name="documents"
+               accept=".pdf,.doc,.docx" multiple>
+
+        <p class="hint">Existing documents will be kept. Newly uploaded documents will be added.</p>
+
+        <button type="submit" class="btn submit-btn">Update CV</button>
+    </form>
+</main>
+
+</body>
+</html>

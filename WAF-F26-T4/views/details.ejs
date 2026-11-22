@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= resume.fullname %> - CV Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h2>Resume Manager</h2>
+        <a href="/resumes" class="btn btn-secondary">Back to Home</a>
+    </header>
+
+    <main class="container details-container">
+
+        <div class="details-header">
+
+            <% if (resume.image) { %>
+                <img
+                    src="/uploads/images/<%= resume.image %>"
+                    alt="Profile image"
+                    class="details-image"
+                >
+            <% } %>
+
+            <div>
+                <h1><%= resume.fullname %></h1>
+                <p><%= resume.email %></p>
+                <p><%= resume.contactNumber %></p>
+            </div>
+
+        </div>
+
+        <section class="details-section">
+            <h2>Professional Summary</h2>
+            <p><%= resume.summary || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Qualifications</h2>
+
+            <% if (resume.qualifications?.length) { %>
+                <% resume.qualifications.forEach(item => { %>
+                    <div class="detail-item">
+                        <h3><%= item.degree %></h3>
+                        <p><%= item.institution %></p>
+                        <p>Year: <%= item.year %></p>
+                        <p>Grade: <%= item.grade %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>Not provided</p>
+            <% } %>
+        </section>
+
+        <section class="details-section">
+            <h2>Certifications</h2>
+
+            <% if (resume.certifications?.length) { %>
+                <% resume.certifications.forEach(item => { %>
+                    <div class="detail-item">
+                        <h3><%= item.title %></h3>
+                        <p><%= item.organization %></p>
+                        <p><%= item.year %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>Not provided</p>
+            <% } %>
+        </section>
+
+        <section class="details-section">
+            <h2>Professional Experience</h2>
+
+            <% if (resume.professionalExperience?.length) { %>
+                <% resume.professionalExperience.forEach(item => { %>
+                    <div class="detail-item">
+                        <h3><%= item.jobTitle %></h3>
+                        <p><%= item.organization %></p>
+                        <p><%= item.duration %></p>
+                        <p><%= item.description %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>Not provided</p>
+            <% } %>
+        </section>
+
+        <section class="details-section">
+            <h2>Skills</h2>
+            <p><%= resume.skills?.join(", ") || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Languages</h2>
+            <p><%= resume.languages?.join(", ") || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Hobbies</h2>
+            <p><%= resume.hobbies?.join(", ") || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Research Statement</h2>
+            <p><%= resume.researchStatement || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Projects</h2>
+
+            <% if (resume.projects?.length) { %>
+                <% resume.projects.forEach(item => { %>
+                    <div class="detail-item">
+                        <h3><%= item.title %></h3>
+                        <p><%= item.description %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>Not provided</p>
+            <% } %>
+        </section>
+
+        <section class="details-section">
+            <h2>Achievements</h2>
+            <p><%= resume.achievements?.join(", ") || "Not provided" %></p>
+        </section>
+
+        <section class="details-section">
+            <h2>Supporting Documents</h2>
+
+            <% if (resume.documents?.length) { %>
+                <% resume.documents.forEach(document => { %>
+                    <p>
+                        <a href="/uploads/documents/<%= document %>" target="_blank">
+                            <%= document %>
+                        </a>
+                    </p>
+                <% }) %>
+            <% } else { %>
+                <p>No documents uploaded.</p>
+            <% } %>
+        </section>
+
+        <div class="card-actions">
+            <a href="/resumes/<%= resume._id %>/edit" class="btn">
+                Edit CV
+            </a>
+
+            <a href="/resumes" class="btn btn-secondary">
+                Back to List
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
